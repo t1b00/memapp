@@ -1,0 +1,44 @@
+/* App.css */
+.App {
+  text-align: center;
+  background-color: #2c2c2c; /* Dark background color */
+  color: #ffffff; /* Light text color for better contrast */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+h1 {
+  color: #ffffff; /* Ensure the header text is visible */
+}
+
+form {
+  margin-bottom: 20px;
+}
+
+input {
+  padding: 10px;
+  margin-right: 10px;
+  border: none;
+  border-radius: 5px;
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #4caf50; /* Button color */
+  color: #ffffff;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049; /* Button hover color */
+}
+
+.colored-text {
+  margin-top: 20px;
+  font-size: 1.2em;
+}
