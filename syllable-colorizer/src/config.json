@@ -2,9 +2,9 @@
     "apiEndpoint": "http://127.0.0.1:5000/map_syllables_to_colors",
     "language": "en_US",
     "syllableCount": 4,
-    "tempo": 100,
+    "tempo": 120,
     "appTitle": "Memorize Anything",
     "inputPlaceholder": "Enter text",
     "submitButtonText": "Submit",
-    "playButtonText": "Play"
+    "playButtonText": "Play Tune"
   }
