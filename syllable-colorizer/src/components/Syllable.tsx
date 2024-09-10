@@ -1,6 +1,6 @@
 // src/Syllable.tsx
 import React from 'react';
-import colorMapping from './colorMapping';
+import colorMapping from '../colorMapping';
 
 interface SyllableProps {
   text: string;

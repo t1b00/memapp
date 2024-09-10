@@ -2,7 +2,7 @@
     "apiEndpoint": "http://127.0.0.1:5000/map_syllables_to_colors",
     "language": "en_US",
     "syllableCount": 4,
-    "tempo": 120,
+    "tempo": 100,
     "appTitle": "Memorize Anything",
     "inputPlaceholder": "Enter text",
     "submitButtonText": "Submit",

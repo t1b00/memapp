@@ -1,4 +1,3 @@
-// src/playNotes.ts
 import noteMapping from './noteMapping';
 import appConfig from './config';
 

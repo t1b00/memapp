@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import Syllable from './Syllable';
-import playNotes from './playNotes';
+import Form from './components/Form';
+import SyllableList from './components/SyllableList';
+import PlayButton from './components/PlayButton';
 import appConfig from './config';
 import './App.css';
 
@@ -29,28 +30,9 @@ const App: React.FC = () => {
   return (
     <div className="App">
       <h1>{appConfig.appTitle}</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-          placeholder={appConfig.inputPlaceholder}
-        />
-        <button type="submit">{appConfig.submitButtonText}</button>
-      </form>
-      <div className="colored-text">
-        {syllableData.map(([syllable, colorIndex], index) => (
-          <Syllable
-            key={index}
-            text={syllable}
-            colorIndex={colorIndex}
-            isPlaying={index === currentSyllableIndex}
-          />
-        ))}
-      </div>
-      <button onClick={() => playNotes(syllableData, setCurrentSyllableIndex)}>
-        {appConfig.playButtonText}
-      </button>
+      <Form text={text} setText={setText} handleSubmit={handleSubmit} />
+      <SyllableList syllableData={syllableData} currentSyllableIndex={currentSyllableIndex} />
+      <PlayButton syllableData={syllableData} setCurrentSyllableIndex={setCurrentSyllableIndex} />
     </div>
   );
 };
