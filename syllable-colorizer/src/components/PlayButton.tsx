@@ -1,7 +1,7 @@
 // src/components/PlayButton.tsx
 import React from 'react';
 import appConfig from '../config';
-import playNotes from '../playNotes';
+import playNotes from '../utils/playNotes';
 
 interface PlayButtonProps {
   syllableData: [string, number][];

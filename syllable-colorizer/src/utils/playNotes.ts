@@ -1,6 +1,6 @@
 // src/playNotes.ts
-import noteMapping from './noteMapping';
-import appConfig from './config';
+import noteMapping from '../noteMapping';
+import appConfig from '../config';
 
 const playNotes = (
   syllableData: [string, number][],

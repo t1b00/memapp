@@ -1,31 +1,27 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+// src/App.tsx
+import React from 'react';
 import Form from './components/Form';
 import SyllableList from './components/SyllableList';
 import PlayButton from './components/PlayButton';
+import useSyllableData from './hooks/useSyllableData';
 import appConfig from './config';
 import './App.css';
 
 const App: React.FC = () => {
-  const [text, setText] = useState('');
-  const [syllableData, setSyllableData] = useState<[string, number][]>([]);
-  const [currentSyllableIndex, setCurrentSyllableIndex] = useState<number | null>(null);
-  const [isPlaying, setIsPlaying] = useState(false); // New state for play button
+  const {
+    text,
+    setText,
+    syllableData,
+    currentSyllableIndex,
+    setCurrentSyllableIndex,
+    isPlaying,
+    setIsPlaying,
+    fetchSyllableData,
+  } = useSyllableData();
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    try {
-      const response = await axios.post(appConfig.apiEndpoint, {
-        text,
-        lang: appConfig.language,
-        N: appConfig.syllableCount,
-      });
-      const data = response.data;
-      setSyllableData(data);
-      setCurrentSyllableIndex(null);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
+    await fetchSyllableData();
   };
 
   return (
