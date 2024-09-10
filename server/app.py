@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import pyphen
 import random
-
+from constants import DEFAULT_PREFIX_SIZE_CHARS_FOR_HASH, DEFAULT_SEED
 app = Flask(__name__)
 CORS(app) 
 
@@ -18,15 +18,13 @@ def syllable_tokenizer(text, lang='en_US'):
                 syllables.append(syllable)
             syllables.append(' ')  # Add a space to denote the word boundary
         syllables.append('\n')  # Add a newline character to denote the line boundary
-    if syllables:
-        syllables.pop()  # Remove the last added newline character as it is not needed
     return syllables
 
 def color_syllables(text, choices, lang='en_US'):
     # Tokenize the text into syllables
     syllables = syllable_tokenizer(text, lang)
     # Create an ordered dictionary from syllables to colors
-    random.seed(text.__hash__())
+    random.seed(DEFAULT_SEED if len(text) < DEFAULT_PREFIX_SIZE_CHARS_FOR_HASH else hash(text[:DEFAULT_PREFIX_SIZE_CHARS_FOR_HASH]))
     color_dict = dict()
     for syllable in syllables:
         color_dict[syllable] = random.choice(choices)

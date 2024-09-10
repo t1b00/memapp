@@ -1,28 +1,26 @@
-// src/App.tsx
 import React, { useState } from 'react';
 import axios from 'axios';
-import colorMapping from './colorMapping';
+import Syllable from './Syllable';
+import playNotes from './playNotes';
+import appConfig from './config';
 import './App.css';
 
 const App: React.FC = () => {
   const [text, setText] = useState('');
-  const [coloredText, setColoredText] = useState<JSX.Element[]>([]);
+  const [syllableData, setSyllableData] = useState<[string, number][]>([]);
+  const [currentSyllableIndex, setCurrentSyllableIndex] = useState<number | null>(null);
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     try {
-      const response = await axios.post('http://127.0.0.1:5000/map_syllables_to_colors', {
+      const response = await axios.post(appConfig.apiEndpoint, {
         text,
-        lang: 'en_US',
-        N: 4,
+        lang: appConfig.language,
+        N: appConfig.syllableCount,
       });
       const data = response.data;
-      const coloredElements = data.map((item: [string, number], index: number) => (
-        <span key={index} style={{ color: colorMapping[item[1]] }}>
-          {item[0]}
-        </span>
-      ));
-      setColoredText(coloredElements);
+      setSyllableData(data);
+      setCurrentSyllableIndex(null);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -30,17 +28,29 @@ const App: React.FC = () => {
 
   return (
     <div className="App">
-      <h1>Syllable Colorizer</h1>
+      <h1>{appConfig.appTitle}</h1>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
           value={text}
           onChange={(e) => setText(e.target.value)}
-          placeholder="Enter text"
+          placeholder={appConfig.inputPlaceholder}
         />
-        <button type="submit">Submit</button>
+        <button type="submit">{appConfig.submitButtonText}</button>
       </form>
-      <div className="colored-text">{coloredText}</div>
+      <div className="colored-text">
+        {syllableData.map(([syllable, colorIndex], index) => (
+          <Syllable
+            key={index}
+            text={syllable}
+            colorIndex={colorIndex}
+            isPlaying={index === currentSyllableIndex}
+          />
+        ))}
+      </div>
+      <button onClick={() => playNotes(syllableData, setCurrentSyllableIndex)}>
+        {appConfig.playButtonText}
+      </button>
     </div>
   );
 };
