@@ -7,7 +7,6 @@ interface SyllableListProps {
   currentSyllableIndex: number | null;
 }
 
-// Helper function to find the closest valid color index
 const findClosestColorIndex = (syllableData: [string, number][], index: number): number => {
   let left = index - 1;
   let right = index + 1;
@@ -21,7 +20,6 @@ const findClosestColorIndex = (syllableData: [string, number][], index: number):
     left--;
     right++;
   }
-  // Default color index if no valid color is found (this case should ideally not happen)
   return 0;
 };
 
@@ -34,7 +32,7 @@ const SyllableList: React.FC<SyllableListProps> = ({ syllableData, currentSyllab
         <Syllable
           key={index}
           text={syllable}
-          colorIndex={shouldColor ? finalColorIndex : -1} // Use -1 or a neutral color index for uncolored syllables
+          colorIndex={shouldColor ? finalColorIndex : -1}
           isPlaying={index === currentSyllableIndex}
         />
       );

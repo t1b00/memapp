@@ -7,5 +7,9 @@
     "inputPlaceholder": "Enter text",
     "submitButtonText": "Submit",
     "playButtonText": "Play Tune",
-    "colors": ["#FF0000", "#00FF00", "#0000FF", "#FFFF00", "#FF00FF"] 
+    "colors": ["#FF0000", "#00FF00", "#0000FF", "#FFFF00", "#FF00FF"],
+    "playButtonClassName": "play-button",
+    "showDot": false, 
+    "dotColor": "#00f", 
+    "dotAnimation": true
   }

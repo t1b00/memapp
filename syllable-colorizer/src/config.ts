@@ -11,6 +11,10 @@ interface Config {
   submitButtonText: string;
   playButtonText: string;
   colors: string[];
+  playButtonClassName: string;
+  showDot: boolean;
+  dotColor: string;
+  dotAnimation: boolean;
 }
 
 const appConfig: Config = config;

@@ -1,6 +1,8 @@
 // src/Syllable.tsx
-import React from 'react';
+import React, { useEffect } from 'react';
 import colorMapping from '../utils/colorMapping';
+import config from '../config'; // Import the configuration
+import './Syllable.css'; // Ensure this path is correct
 
 interface SyllableProps {
   text: string;
@@ -9,21 +11,16 @@ interface SyllableProps {
 }
 
 const Syllable: React.FC<SyllableProps> = ({ text, colorIndex, isPlaying }) => {
+  useEffect(() => {
+    // Set CSS variables based on config
+    document.documentElement.style.setProperty('--dot-color', config.dotColor);
+    document.documentElement.style.setProperty('--dot-animation', config.dotAnimation ? 'pulse 1s infinite' : 'none');
+  }, []);
+
   return (
     <span style={{ position: 'relative', color: colorMapping[colorIndex] }}>
-      {isPlaying && text.trim() !== '' && (
-        <span
-          style={{
-            position: 'absolute',
-            top: '-10px',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            width: '10px',
-            height: '10px',
-            backgroundColor: 'red',
-            borderRadius: '50%',
-          }}
-        />
+      {config.showDot && isPlaying && text.trim() !== '' && (
+        <span className="pulsing-dot" />
       )}
       {text}
     </span>

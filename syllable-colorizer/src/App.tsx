@@ -30,6 +30,7 @@ const App: React.FC = () => {
       <Form text={text} setText={setText} handleSubmit={handleSubmit} />
       <SyllableList syllableData={syllableData} currentSyllableIndex={currentSyllableIndex} />
       <PlayButton
+        className={appConfig.playButtonClassName}
         syllableData={syllableData}
         setCurrentSyllableIndex={setCurrentSyllableIndex}
         isPlaying={isPlaying}

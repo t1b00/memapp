@@ -103,3 +103,7 @@ button:hover {
 .error-message {
   color: red;
 }
+
+.play-button {
+  margin-top: 20px; /* Add spacing between SyllableList and PlayButton */
+}
