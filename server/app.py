@@ -8,15 +8,18 @@ CORS(app)
 
 def syllable_tokenizer(text, lang='en_US'):
     dic = pyphen.Pyphen(lang=lang)
-    words = text.split()
+    lines = text.split('\n')
     syllables = []
-    for word in words:
-        syllables_in_word = dic.inserted(word).split('-')
-        for syllable in syllables_in_word:
-            syllables.append(syllable)
-        syllables.append(' ')  # Add a space to denote the word boundary
+    for line in lines:
+        words = line.split()
+        for word in words:
+            syllables_in_word = dic.inserted(word).split('-')
+            for syllable in syllables_in_word:
+                syllables.append(syllable)
+            syllables.append(' ')  # Add a space to denote the word boundary
+        syllables.append('\n')  # Add a newline character to denote the line boundary
     if syllables:
-        syllables.pop()  # Remove the last added space as it is not needed
+        syllables.pop()  # Remove the last added newline character as it is not needed
     return syllables
 
 def color_syllables(text, choices, lang='en_US'):

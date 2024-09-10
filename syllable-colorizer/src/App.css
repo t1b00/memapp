@@ -10,19 +10,54 @@
   align-items: center;
 }
 
+.file-content pre {
+  white-space: pre-wrap;
+  background-color: #f9f9f9;
+  padding: 10px;
+  border: 1px solid #ddd;
+  margin-top: 20px;
+}
+
 h1 {
   color: #ffffff; /* Ensure the header text is visible */
+}
+
+.file-input {
+  display: none;
+}
+
+.upload-label {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+}
+
+.upload-icon {
+  margin-right: 8px; /* Adjust as needed */
+  font-size: 24px; /* Adjust as needed */
 }
 
 form {
   margin-bottom: 20px;
 }
 
-input {
+input, textarea {
   padding: 10px;
   margin-right: 10px;
   border: none;
   border-radius: 5px;
+}
+
+textarea {
+  width: 100%;
+  max-width: 500px; /* Adjust as needed */
+  height: 150px; /* Adjust as needed */
+  resize: vertical; /* Allow vertical resizing */
+  background-color: #f9f9f9; /* Light background for textarea */
+  color: #2c2c2c; /* Dark text color for better readability */
+  font-size: 1em; /* Adjust font size as needed */
+  line-height: 1.5; /* Adjust line height as needed */
+  border: 1px solid #ddd; /* Border to match the file content */
 }
 
 button {
@@ -41,4 +76,30 @@ button:hover {
 .colored-text {
   margin-top: 20px;
   font-size: 1.2em;
+  background-color: #444; /* Slightly lighter background for contrast */
+  padding: 20px; /* Add padding for spacing */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
+  max-width: 80%; /* Limit the width */
+  word-wrap: break-word; /* Ensure long words break to the next line */
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+.language-selector {
+  display: flex;
+  align-items: center;
+}
+
+.language-icon {
+  margin-right: 5px;
+}
+
+.error-message {
+  color: red;
 }
