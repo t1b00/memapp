@@ -1,6 +1,8 @@
-// src/playNotes.ts
+// src/utils/playNotes.ts
 import noteMapping from '../noteMapping';
 import appConfig from '../config';
+import playSingleNote from './playSingleNote';
+
 
 const playNotes = (
   syllableData: [string, number][],
@@ -10,13 +12,13 @@ const playNotes = (
   const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
   let startTime = audioContext.currentTime;
   const noteDuration = 60 / appConfig.tempo; // duration of each note in seconds
-
   setIsPlaying(true); // Set isPlaying to true when music starts
 
   syllableData.forEach(([syllable, number], index) => {
     if (syllable.trim() === '') {
       return; // Skip whitespace syllables
     }
+    
 
     // Validate number and noteMapping[number]
     if (typeof number !== 'number' || !isFinite(number)) {
@@ -30,19 +32,14 @@ const playNotes = (
       return;
     }
 
-    const oscillator = audioContext.createOscillator();
-    oscillator.type = 'sine';
-    oscillator.frequency.setValueAtTime(frequency, startTime);
-    oscillator.connect(audioContext.destination);
-    oscillator.start(startTime);
-    oscillator.stop(startTime + noteDuration);
+    playSingleNote(audioContext, frequency, startTime, noteDuration);
 
     setTimeout(() => {
       setCurrentSyllableIndex(index);
     }, (startTime - audioContext.currentTime) * 1000);
 
     setTimeout(() => {
-      setCurrentSyllableIndex(null);
+      setCurrentSyllableIndex(0);
     }, (startTime + noteDuration - audioContext.currentTime) * 1000);
 
     startTime += noteDuration; // Increment start time only for non-whitespace syllables

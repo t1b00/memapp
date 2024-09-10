@@ -15,6 +15,8 @@ interface Config {
   showDot: boolean;
   dotColor: string;
   dotAnimation: boolean;
+  learnTuneButtonClassName: string;
+  learnTuneButtonText: string;
 }
 
 const appConfig: Config = config;

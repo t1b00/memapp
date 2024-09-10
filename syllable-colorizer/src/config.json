@@ -11,5 +11,7 @@
     "playButtonClassName": "play-button",
     "showDot": false, 
     "dotColor": "#00f", 
-    "dotAnimation": true
+    "dotAnimation": true,
+    "learnTuneButtonClassName": "learn-tune-button",
+    "learnTuneButtonText": "Learn Tune"
   }

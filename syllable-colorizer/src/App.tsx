@@ -1,5 +1,4 @@
 // src/App.tsx
-import React from 'react';
 import Form from './components/Form';
 import SyllableList from './components/SyllableList';
 import PlayButton from './components/PlayButton';
@@ -28,7 +27,7 @@ const App: React.FC = () => {
     <div className="App">
       <h1>{appConfig.appTitle}</h1>
       <Form text={text} setText={setText} handleSubmit={handleSubmit} />
-      <SyllableList syllableData={syllableData} currentSyllableIndex={currentSyllableIndex} />
+      <SyllableList syllableData={syllableData} currentSyllableIndex={currentSyllableIndex} isPlaying={isPlaying} />
       <PlayButton
         className={appConfig.playButtonClassName}
         syllableData={syllableData}

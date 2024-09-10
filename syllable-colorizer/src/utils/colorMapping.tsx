@@ -1,4 +1,4 @@
-// src/colorMapping.ts
+// src/utils/colorMapping.ts
 const colorMapping: { [key: number]: string } = {
     0: 'red',
     1: 'green',
