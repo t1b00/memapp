@@ -12,11 +12,9 @@ def syllable_tokenizer(text, lang='en_US'):
     # Split text into lines
     lines = text.split('\n')
     syllables = []
-    
     for line in lines:
         # Split line into words and punctuation, including surrounding whitespace
         words_and_punct = re.findall(r"\s*\w+(?:'\w+)?\s*|[^\w\s]\s*|\s+", line, re.UNICODE)
-        
         for i, token in enumerate(words_and_punct):
             if re.match(r"\s*\w+(?:'\w+)?\s*", token):  # If it's a word with possible surrounding whitespace and apostrophes
                 word = token.strip()  # Remove surrounding whitespace for syllable splitting
@@ -24,17 +22,14 @@ def syllable_tokenizer(text, lang='en_US'):
                 for syllable in syllables_in_word:
                     syllables.append(syllable)
                 # Check if the next token is punctuation that should not have a space before it
-                if i + 1 < len(words_and_punct) and re.match(r"[?.!]", words_and_punct[i + 1].strip()):
+                if i + 1 < len(words_and_punct) and re.match(r"[?.!,]", words_and_punct[i + 1].strip()):
                     continue  # Do not add a space
                 else:
                     syllables.append(' ')  # Add a space to denote the word boundary
             else:  # If it's punctuation or whitespace
                 syllables.append(token)
-        
         syllables.append('\n')  # Add a newline character to denote the line boundary
-    
     return syllables
-
 
 def color_syllables(text, choices, lang='en_US'):
     # Tokenize the text into syllables
@@ -42,17 +37,11 @@ def color_syllables(text, choices, lang='en_US'):
     # Create an ordered dictionary from syllables to colors
     random.seed(DEFAULT_SEED if len(text) < DEFAULT_PREFIX_SIZE_CHARS_FOR_HASH else hash(text[:DEFAULT_PREFIX_SIZE_CHARS_FOR_HASH]))
     color_dict = OrderedDict()
-    last_color = None
-    
     for syllable in syllables:
-        if syllable.isspace():
+        if syllable.isspace() or re.match(r"[^\w\s]", syllable):
             color_dict[syllable] = -1
-        elif re.match(r"[^\w\s]", syllable):  # If it's punctuation
-            color_dict[syllable] = last_color
         else:
-            last_color = random.choice(choices)
-            color_dict[syllable] = last_color
-    
+            color_dict[syllable] = random.choice(choices)
     return color_dict
 
 def map_syllables_to_colors(text, lang='en_US', N=4):
