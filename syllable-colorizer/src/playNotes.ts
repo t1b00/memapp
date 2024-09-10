@@ -1,15 +1,17 @@
-
-//src/playNotes.ts
+// src/playNotes.ts
 import noteMapping from './noteMapping';
 import appConfig from './config';
 
 const playNotes = (
   syllableData: [string, number][],
-  setCurrentSyllableIndex: React.Dispatch<React.SetStateAction<number | null>>
+  setCurrentSyllableIndex: React.Dispatch<React.SetStateAction<number | null>>,
+  setIsPlaying: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
   const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
   let startTime = audioContext.currentTime;
   const noteDuration = 60 / appConfig.tempo; // duration of each note in seconds
+
+  setIsPlaying(true); // Set isPlaying to true when music starts
 
   syllableData.forEach(([syllable, number], index) => {
     if (syllable.trim() === '') {
@@ -45,6 +47,11 @@ const playNotes = (
 
     startTime += noteDuration; // Increment start time only for non-whitespace syllables
   });
+
+  // Set isPlaying to false when music finishes
+  setTimeout(() => {
+    setIsPlaying(false);
+  }, (startTime - audioContext.currentTime) * 1000);
 };
 
 export default playNotes;

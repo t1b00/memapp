@@ -10,6 +10,7 @@ const App: React.FC = () => {
   const [text, setText] = useState('');
   const [syllableData, setSyllableData] = useState<[string, number][]>([]);
   const [currentSyllableIndex, setCurrentSyllableIndex] = useState<number | null>(null);
+  const [isPlaying, setIsPlaying] = useState(false); // New state for play button
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -32,7 +33,12 @@ const App: React.FC = () => {
       <h1>{appConfig.appTitle}</h1>
       <Form text={text} setText={setText} handleSubmit={handleSubmit} />
       <SyllableList syllableData={syllableData} currentSyllableIndex={currentSyllableIndex} />
-      <PlayButton syllableData={syllableData} setCurrentSyllableIndex={setCurrentSyllableIndex} />
+      <PlayButton
+        syllableData={syllableData}
+        setCurrentSyllableIndex={setCurrentSyllableIndex}
+        isPlaying={isPlaying}
+        setIsPlaying={setIsPlaying}
+      />
     </div>
   );
 };
