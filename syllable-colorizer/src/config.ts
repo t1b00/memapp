@@ -10,6 +10,7 @@ interface Config {
   inputPlaceholder: string;
   submitButtonText: string;
   playButtonText: string;
+  colors: string[];
 }
 
 const appConfig: Config = config;
