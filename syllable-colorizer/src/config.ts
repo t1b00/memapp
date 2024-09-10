@@ -5,7 +5,7 @@ interface Config {
   apiEndpoint: string;
   language: string;
   syllableCount: number;
-  tempo: number;
+  defaultTempo: number;
   appTitle: string;
   inputPlaceholder: string;
   submitButtonText: string;

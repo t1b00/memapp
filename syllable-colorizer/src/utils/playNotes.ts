@@ -11,7 +11,7 @@ const playNotes = (
 ) => {
   const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
   let startTime = audioContext.currentTime;
-  const noteDuration = 60 / appConfig.tempo; // duration of each note in seconds
+  const noteDuration = 60 / appConfig.defaultTempo; // duration of each note in seconds
   setIsPlaying(true); // Set isPlaying to true when music starts
 
   syllableData.forEach(([syllable, number], index) => {
