@@ -1,3 +1,5 @@
+
+//src/playNotes.ts
 import noteMapping from './noteMapping';
 import appConfig from './config';
 
@@ -14,9 +16,21 @@ const playNotes = (
       return; // Skip whitespace syllables
     }
 
+    // Validate number and noteMapping[number]
+    if (typeof number !== 'number' || !isFinite(number)) {
+      console.error(`Invalid number: ${number}`);
+      return;
+    }
+
+    const frequency = noteMapping[number];
+    if (typeof frequency !== 'number' || !isFinite(frequency)) {
+      console.error(`Invalid frequency for number ${number}: ${frequency}`);
+      return;
+    }
+
     const oscillator = audioContext.createOscillator();
     oscillator.type = 'sine';
-    oscillator.frequency.setValueAtTime(noteMapping[number], startTime);
+    oscillator.frequency.setValueAtTime(frequency, startTime);
     oscillator.connect(audioContext.destination);
     oscillator.start(startTime);
     oscillator.stop(startTime + noteDuration);
