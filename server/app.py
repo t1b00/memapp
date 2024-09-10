@@ -5,6 +5,7 @@ import random
 from constants import DEFAULT_PREFIX_SIZE_CHARS_FOR_HASH, DEFAULT_SEED
 app = Flask(__name__)
 CORS(app) 
+from collections import OrderedDict
 
 def syllable_tokenizer(text, lang='en_US'):
     dic = pyphen.Pyphen(lang=lang)
@@ -23,11 +24,17 @@ def syllable_tokenizer(text, lang='en_US'):
 def color_syllables(text, choices, lang='en_US'):
     # Tokenize the text into syllables
     syllables = syllable_tokenizer(text, lang)
+    
     # Create an ordered dictionary from syllables to colors
     random.seed(DEFAULT_SEED if len(text) < DEFAULT_PREFIX_SIZE_CHARS_FOR_HASH else hash(text[:DEFAULT_PREFIX_SIZE_CHARS_FOR_HASH]))
-    color_dict = dict()
+    color_dict = OrderedDict()
+    
     for syllable in syllables:
-        color_dict[syllable] = random.choice(choices)
+        if syllable.isspace():
+            color_dict[syllable] = -1
+        else:
+            color_dict[syllable] = random.choice(choices)
+    
     return color_dict
 
 def map_syllables_to_colors(text, lang='en_US', N=4):
