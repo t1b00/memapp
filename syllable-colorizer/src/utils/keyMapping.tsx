@@ -1,3 +1,4 @@
+//src/utils/keyMapping.tsx
 const keyMaping: { [key: string]: number } = {
     'a': 0,
     's': 1,
