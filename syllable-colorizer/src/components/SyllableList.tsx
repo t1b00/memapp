@@ -6,6 +6,7 @@ interface SyllableListProps {
   syllableData: [string, number][];
   currentSyllableIndex: number | null;
   isPlaying: boolean;
+  emojiStatus: 'happy' | 'sad';
 }
 
 const findClosestColorIndex = (syllableData: [string, number][], index: number): number => {
@@ -24,7 +25,7 @@ const findClosestColorIndex = (syllableData: [string, number][], index: number):
   return 0;
 };
 
-const SyllableList: React.FC<SyllableListProps> = ({ syllableData, currentSyllableIndex, isPlaying }) => (
+const SyllableList: React.FC<SyllableListProps> = ({ syllableData, currentSyllableIndex, isPlaying, emojiStatus }) => (
   <div className="colored-text">
     {syllableData.map(([syllable, colorIndex], index) => {
       const finalColorIndex = colorIndex === -1 ? findClosestColorIndex(syllableData, index) : colorIndex;
@@ -35,6 +36,7 @@ const SyllableList: React.FC<SyllableListProps> = ({ syllableData, currentSyllab
           text={syllable}
           colorIndex={shouldColor ? finalColorIndex : -1}
           isPlaying={index === currentSyllableIndex}
+          emojiStatus={emojiStatus}
         />
       );
     })}
