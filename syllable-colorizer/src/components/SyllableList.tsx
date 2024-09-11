@@ -5,7 +5,7 @@ import Syllable from './Syllable';
 interface SyllableListProps {
   syllableData: [string, number][];
   currentSyllableIndex: number | null;
-  isPlaying: boolean; // Add this line
+  isPlaying: boolean;
 }
 
 const findClosestColorIndex = (syllableData: [string, number][], index: number): number => {
@@ -28,7 +28,7 @@ const SyllableList: React.FC<SyllableListProps> = ({ syllableData, currentSyllab
   <div className="colored-text">
     {syllableData.map(([syllable, colorIndex], index) => {
       const finalColorIndex = colorIndex === -1 ? findClosestColorIndex(syllableData, index) : colorIndex;
-      const shouldColor = isPlaying && currentSyllableIndex !== null && index <= currentSyllableIndex;
+      const shouldColor = isPlaying && currentSyllableIndex !== null && index < currentSyllableIndex;
       return (
         <Syllable
           key={index}

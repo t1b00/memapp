@@ -1,5 +1,5 @@
 // src/App.tsx
-import React, { useState, useEffect } from 'react'; // Removed useRef
+import React, { useState, useEffect } from 'react';
 import Form from './components/Form';
 import SyllableList from './components/SyllableList';
 import PlayButton from './components/PlayButton';
@@ -40,7 +40,17 @@ const App: React.FC = () => {
       <h1>{appConfig.appTitle}</h1>
       <Form text={text} setText={setText} handleSubmit={handleSubmit} />
       <SyllableList syllableData={syllableData} currentSyllableIndex={currentSyllableIndex} isPlaying={isPlaying} />
-      {audioContext && <NoteButtons audioContext={audioContext} startTime={0} noteDuration={60 / appConfig.defaultTempo} />}
+      {audioContext && (
+        <NoteButtons
+          isPlaying={isPlaying}
+          setIsPlaying={setIsPlaying}
+          audioContext={audioContext}
+          noteDuration={60 / appConfig.defaultTempo}
+          syllableData={syllableData}
+          currentSyllableIndex={currentSyllableIndex}
+          setCurrentSyllableIndex={setCurrentSyllableIndex}
+        />
+      )}
       <PlayButton
         className={appConfig.playButtonClassName}
         syllableData={syllableData}

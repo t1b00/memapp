@@ -12,17 +12,34 @@ interface PlayButtonProps {
   audioContext: AudioContext | null;
 }
 
-const PlayButton: React.FC<PlayButtonProps> = ({ className, syllableData, setCurrentSyllableIndex, isPlaying, setIsPlaying, audioContext }) => (
-  <button
-    className={className}
-    onClick={() => playNotes(syllableData, setCurrentSyllableIndex, setIsPlaying, audioContext)}
-    style={{
-      pointerEvents: isPlaying ? 'none' : 'auto',
-      cursor: isPlaying ? 'not-allowed' : 'pointer'
-    }}
-  >
-    {appConfig.playButtonText}
-  </button>
-);
+const PlayButton: React.FC<PlayButtonProps> = ({
+  className,
+  syllableData,
+  setCurrentSyllableIndex,
+  isPlaying,
+  setIsPlaying,
+  audioContext
+}) => {
+  const handleButtonClick = () => {
+    if (isPlaying) {
+      setIsPlaying(false);
+      setCurrentSyllableIndex(0);
+    } else {
+      playNotes(syllableData, setCurrentSyllableIndex, setIsPlaying, audioContext);
+    }
+  };
+
+  return (
+    <button
+      className={className}
+      onClick={handleButtonClick}
+      style={{
+        cursor: 'pointer'
+      }}
+    >
+      {isPlaying ? 'Reset' : appConfig.playButtonText}
+    </button>
+  );
+};
 
 export default PlayButton;

@@ -18,13 +18,19 @@ const playNotes = (
   setIsPlaying(true); // Set isPlaying to true when music starts
 
   const playNextNote = (index: number) => {
+
+    if (index === syllableData.length) {
+      setCurrentSyllableIndex(index+1);
+      return;
+    }
+
     if (index >= syllableData.length) {
-      setIsPlaying(false); // Set isPlaying to false when music finishes
+      setIsPlaying(index > syllableData.length); // Set isPlaying to false when music finishes
       return;
     }
 
     const [syllable, number] = syllableData[index];
-    if (syllable.trim() === '') {
+    if (number === -1) {
       playNextNote(index + 1); // Skip whitespace syllables
       return;
     }
@@ -45,9 +51,7 @@ const playNotes = (
 
     playSingleNote(audioContext, frequency, audioContext.currentTime, noteDuration);
     setCurrentSyllableIndex(index);
-
     setTimeout(() => {
-      setCurrentSyllableIndex(0); // Reset current syllable to the beginning
       playNextNote(index + 1); // Schedule the next note
     }, noteDuration * 1000);
   };
