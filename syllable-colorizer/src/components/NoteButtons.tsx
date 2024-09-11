@@ -31,7 +31,6 @@ const NoteButtons: React.FC<NoteButtonsProps> = ({ audioContext, startTime, note
           onClick={() => handleNoteClick(parseInt(key))}
           // Remove inline style - already done with CSS
         >
-          {noteMapping[parseInt(key)]} Hz
         </button>
       ))}
     </div>
